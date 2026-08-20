@@ -38,6 +38,15 @@ export default function HomePage() {
         <p className="eyebrow">Private care, thoughtfully arranged</p>
         <h1>Your health deserves a clear next step.</h1>
         <p className="hero-text">Find the right specialist and book a visit with MedCare Plus.</p>
+        <div className="hero-signature">
+          <span className="signature-line" />
+          <span>Care that keeps its promise</span>
+        </div>
+        <div className="home-facts" aria-label="MedCare Plus highlights">
+          <div><strong>24/7</strong><span>care coordination</span></div>
+          <div><strong>03</strong><span>specialist teams</span></div>
+          <div><strong>01</strong><span>easy next step</span></div>
+        </div>
       </div>
       <div className="home-appointment-panel">
         <div className="panel-heading">
