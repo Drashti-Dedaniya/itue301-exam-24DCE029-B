@@ -29,24 +29,27 @@ export default function DoctorsPage() {
   }, []);
 
   return (
-    <section>
-      <div className="section-heading">
-        <p className="eyebrow">Our clinical team</p>
-        <h1>Meet the doctors</h1>
+    <section className="doctors-page">
+      <div className="doctors-intro">
+        <div className="section-heading">
+          <p className="eyebrow">MedCare Plus / clinical directory</p>
+          <h1>Care, with the right specialist.</h1>
+          <p>Our consultants bring calm expertise to every appointment, from first questions to follow-up care.</p>
+        </div>
+        <div className="directory-note"><span className="directory-dot" /> <strong>{data.length || '03'}</strong> specialist profiles<br /><small>Updated from the live hospital directory</small></div>
       </div>
       {loading && <p className="message">Loading doctors...</p>}
       {error && <p className="message error-message">{error}</p>}
       {!loading && !error && (
         data.length ? (
           <div className="doctor-grid">
-            {data.map((doctor) => (
+            {data.map((doctor, index) => (
               <article className="doctor-card" key={doctor._id || doctor.id || doctor.email}>
+                <div className="doctor-card-top"><span className="doctor-number">0{index + 1}</span><span className={doctor.available ? 'availability available' : 'availability unavailable'}>{doctor.available ? 'Available today' : 'Currently away'}</span></div>
                 <div className="doctor-avatar">{doctor.name.charAt(0)}</div>
                 <h2>{doctor.name}</h2>
-                <p>{doctor.specialisation}</p>
-                <span className={doctor.available ? 'availability available' : 'availability unavailable'}>
-                  {doctor.available ? 'Available' : 'Unavailable'}
-                </span>
+                <p className="doctor-speciality">{doctor.specialisation}</p>
+                <div className="doctor-card-footer"><span>Consultation</span><strong>{doctor.available ? 'Book a visit' : 'View profile'}</strong></div>
               </article>
             ))}
           </div>
