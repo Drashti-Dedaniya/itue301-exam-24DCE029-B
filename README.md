@@ -15,7 +15,7 @@ npm install
 npm run dev
 ```
 
-The frontend expects the API at `http://localhost:5000`. To use another API host, add `VITE_API_URL` to `frontend/.env`.
+The frontend uses `VITE_API_URL=http://localhost:5052` in `frontend/.env`. Change this value if the backend runs on another port.
 
 ## Backend setup
 
@@ -47,3 +47,8 @@ Mongoose schemas are in `backend/models/Patient.js`, `Doctor.js`, and `Appointme
 - `MONGO_URI` MongoDB connection string
 - `PORT` optional backend port, default `5000`
 - `VITE_API_URL` optional frontend API base URL
+
+## Submission
+
+- GitHub repository: https://github.com/Drashti-Dedaniya/itue301-exam-24DCE029-B
+- Branch: `main`
