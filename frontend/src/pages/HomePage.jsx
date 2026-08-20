@@ -13,6 +13,7 @@ const sampleAppointment = {
 
 export default function HomePage() {
   const [appointment, setAppointment] = useState(sampleAppointment);
+  const [selectedAppointment, setSelectedAppointment] = useState(null);
 
   useEffect(() => {
     fetch(`${API_URL}/api/v1/appointments`)
@@ -21,11 +22,16 @@ export default function HomePage() {
         const saved = result.data?.[0];
         if (saved) {
           setAppointment({
+            appointmentId: saved._id || saved.id,
             patientName: saved.patientId?.name || saved.patientName || 'Patient',
+            patientEmail: saved.patientId?.email || saved.patientEmail,
+            patientPhone: saved.patientId?.phone || saved.patientPhone,
             doctorName: saved.doctorId?.name || saved.doctorName || 'Doctor',
+            doctorId: saved.doctorId?._id || saved.doctorId,
             date: saved.date,
             timeSlot: saved.timeSlot,
             status: saved.status,
+            reason: saved.reason,
           });
         }
       })
@@ -56,13 +62,33 @@ export default function HomePage() {
           </div>
           <span className="calendar-mark">{appointment.date.slice(-2)}</span>
         </div>
-        <AppointmentCard {...appointment} />
+        <AppointmentCard {...appointment} onClick={() => setSelectedAppointment(appointment)} />
         <Link className="home-action" to="/booking">Schedule another visit <span aria-hidden="true">-&gt;</span></Link>
       </div>
       <div className="dashboard-shortcuts">
         <Link to="/doctors"><span className="shortcut-icon">+</span><span><strong>Find a specialist</strong><small>Browse doctors and availability</small></span><b aria-hidden="true">-&gt;</b></Link>
         <Link to="/booking"><span className="shortcut-icon">+</span><span><strong>Request an appointment</strong><small>Choose a doctor and time slot</small></span><b aria-hidden="true">-&gt;</b></Link>
       </div>
+      {selectedAppointment && (
+        <div className="appointment-modal-backdrop" role="presentation" onClick={() => setSelectedAppointment(null)}>
+          <section className="appointment-modal" role="dialog" aria-modal="true" aria-labelledby="appointment-detail-title" onClick={(event) => event.stopPropagation()}>
+            <button className="modal-close" type="button" aria-label="Close appointment details" onClick={() => setSelectedAppointment(null)}>x</button>
+            <p className="eyebrow">Appointment details</p>
+            <h2 id="appointment-detail-title">{selectedAppointment.patientName}</h2>
+            <p className="appointment-modal-subtitle">with {selectedAppointment.doctorName}</p>
+            <dl className="appointment-details-list">
+              <div><dt>Date</dt><dd>{selectedAppointment.date}</dd></div>
+              <div><dt>Time slot</dt><dd>{selectedAppointment.timeSlot}</dd></div>
+              <div><dt>Status</dt><dd><strong className={`status-${selectedAppointment.status}`}>{selectedAppointment.status}</strong></dd></div>
+              <div><dt>Reason</dt><dd>{selectedAppointment.reason || 'No reason provided'}</dd></div>
+              {selectedAppointment.patientEmail && <div><dt>Patient email</dt><dd>{selectedAppointment.patientEmail}</dd></div>}
+              {selectedAppointment.patientPhone && <div><dt>Patient phone</dt><dd>{selectedAppointment.patientPhone}</dd></div>}
+              {selectedAppointment.appointmentId && <div><dt>Appointment ID</dt><dd>{selectedAppointment.appointmentId}</dd></div>}
+              {selectedAppointment.doctorId && <div><dt>Doctor ID</dt><dd>{selectedAppointment.doctorId}</dd></div>}
+            </dl>
+          </section>
+        </div>
+      )}
     </section>
   );
 }

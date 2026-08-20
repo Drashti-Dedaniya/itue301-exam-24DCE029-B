@@ -4,9 +4,16 @@ const statusClasses = {
   cancelled: 'status-cancelled',
 };
 
-export default function AppointmentCard({ patientName, doctorName, date, timeSlot, status }) {
+export default function AppointmentCard({ patientName, doctorName, date, timeSlot, status, onClick }) {
+  function handleKeyDown(event) {
+    if (onClick && (event.key === 'Enter' || event.key === ' ')) {
+      event.preventDefault();
+      onClick();
+    }
+  }
+
   return (
-    <article className="appointment-card">
+    <article className={`appointment-card${onClick ? ' appointment-card-clickable' : ''}`} onClick={onClick} onKeyDown={handleKeyDown} role={onClick ? 'button' : undefined} tabIndex={onClick ? 0 : undefined}>
       <div>
         <p className="eyebrow">Appointment</p>
         <h2>{patientName}</h2>
