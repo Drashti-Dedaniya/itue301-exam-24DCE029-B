@@ -35,17 +35,17 @@ export default function HomePage() {
   return (
     <section className="hero-section">
       <div className="hero-copy">
-        <p className="eyebrow">Private care, thoughtfully arranged</p>
-        <h1>Your health deserves a clear next step.</h1>
-        <p className="hero-text">Find the right specialist and book a visit with MedCare Plus.</p>
+        <p className="eyebrow">Patient portal / Tuesday, 20 August 2026</p>
+        <h1>Good morning, Drashti.</h1>
+        <p className="hero-text">Here is your care at a glance. Your next appointment and trusted clinical team are one step away.</p>
         <div className="hero-signature">
           <span className="signature-line" />
-          <span>Care that keeps its promise</span>
+          <span>One place for your next step in care</span>
         </div>
         <div className="home-facts" aria-label="MedCare Plus highlights">
-          <div><strong>24/7</strong><span>care coordination</span></div>
-          <div><strong>03</strong><span>specialist teams</span></div>
-          <div><strong>01</strong><span>easy next step</span></div>
+          <div><strong>24/7</strong><span>support line</span></div>
+          <div><strong>03</strong><span>specialists available</span></div>
+          <div><strong>01</strong><span>upcoming visit</span></div>
         </div>
       </div>
       <div className="home-appointment-panel">
@@ -58,6 +58,10 @@ export default function HomePage() {
         </div>
         <AppointmentCard {...appointment} />
         <Link className="home-action" to="/booking">Schedule another visit <span aria-hidden="true">-&gt;</span></Link>
+      </div>
+      <div className="dashboard-shortcuts">
+        <Link to="/doctors"><span className="shortcut-icon">+</span><span><strong>Find a specialist</strong><small>Browse doctors and availability</small></span><b aria-hidden="true">-&gt;</b></Link>
+        <Link to="/booking"><span className="shortcut-icon">+</span><span><strong>Request an appointment</strong><small>Choose a doctor and time slot</small></span><b aria-hidden="true">-&gt;</b></Link>
       </div>
     </section>
   );
