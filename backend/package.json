@@ -1,0 +1,8 @@
+{
+  "name": "medcare-plus-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": { "start": "node server.js", "dev": "node --watch server.js", "validate": "node scripts/validateModels.js" },
+  "dependencies": { "cors": "latest", "dotenv": "latest", "express": "latest", "mongoose": "latest" }
+}
