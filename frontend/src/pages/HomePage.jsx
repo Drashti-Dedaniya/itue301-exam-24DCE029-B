@@ -36,7 +36,7 @@ export default function HomePage() {
     <section className="hero-section">
       <div className="hero-copy">
         <p className="eyebrow">Patient portal / Tuesday, 20 August 2026</p>
-        <h1>Good morning, Drashti.</h1>
+        <h1>Your health deserves a clear next step.</h1>
         <p className="hero-text">Here is your care at a glance. Your next appointment and trusted clinical team are one step away.</p>
         <div className="hero-signature">
           <span className="signature-line" />
