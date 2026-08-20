@@ -6,6 +6,7 @@ export default function DoctorsPage() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [selectedDoctor, setSelectedDoctor] = useState(null);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -49,11 +50,30 @@ export default function DoctorsPage() {
                 <div className="doctor-avatar">{doctor.name.charAt(0)}</div>
                 <h2>{doctor.name}</h2>
                 <p className="doctor-speciality">{doctor.specialisation}</p>
-                <div className="doctor-card-footer"><span>Consultation</span><strong>{doctor.available ? 'Book a visit' : 'View profile'}</strong></div>
+                <button className="doctor-card-footer doctor-card-button" type="button" onClick={() => setSelectedDoctor(doctor)}>
+                  <span>Consultation</span><strong>View full profile -&gt;</strong>
+                </button>
               </article>
             ))}
           </div>
         ) : <p className="message">No doctors found.</p>
+      )}
+      {selectedDoctor && (
+        <div className="doctor-modal-backdrop" role="presentation" onClick={() => setSelectedDoctor(null)}>
+          <section className="doctor-modal" role="dialog" aria-modal="true" aria-labelledby="doctor-detail-title" onClick={(event) => event.stopPropagation()}>
+            <button className="modal-close" type="button" aria-label="Close doctor details" onClick={() => setSelectedDoctor(null)}>x</button>
+            <div className="doctor-modal-avatar">{selectedDoctor.name.charAt(0)}</div>
+            <p className="eyebrow">Consultant profile</p>
+            <h2 id="doctor-detail-title">{selectedDoctor.name}</h2>
+            <p className="doctor-modal-speciality">{selectedDoctor.specialisation}</p>
+            <dl className="doctor-details-list">
+              <div><dt>Email</dt><dd>{selectedDoctor.email || 'Not provided'}</dd></div>
+              <div><dt>Specialisation</dt><dd>{selectedDoctor.specialisation}</dd></div>
+              <div><dt>Availability</dt><dd>{selectedDoctor.available ? 'Available for appointments' : 'Currently unavailable'}</dd></div>
+              <div><dt>Doctor ID</dt><dd>{selectedDoctor._id || selectedDoctor.id || 'Not provided'}</dd></div>
+            </dl>
+          </section>
+        </div>
       )}
     </section>
   );
